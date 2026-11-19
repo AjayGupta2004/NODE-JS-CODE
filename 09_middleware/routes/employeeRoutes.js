@@ -5,7 +5,9 @@ const validateEmployee = require('../middelware/validateEmployee')
 const {
     getEmployees,
     getEmployeeByID,
-    addEmployee
+    addEmployee,
+    updateEmployee,
+    deleteEmployee
 } = require('../controllers/employeeController')
 
 const router = express.Router()
@@ -18,6 +20,10 @@ router.use((req, res, next) =>{
 router.get('/', getEmployees)
 
 router.post('/', validateEmployee, addEmployee)
+
+router.put('/:id', validateEmployee, updateEmployee)
+
+router.delete('/:id', deleteEmployee)
 
 router.get('/:id', getEmployeeByID)
 

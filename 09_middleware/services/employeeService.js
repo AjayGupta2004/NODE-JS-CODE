@@ -16,8 +16,33 @@ const addEmployee = (employee) =>{
     return employee
 }
 
+const updateEmployee = (id, updatedData) =>{
+    const index = employees.findIndex(employee => employee.id === Number(id))
+
+    if (index === -1){
+        return null
+    }
+
+    employees[index] = {
+        ...employees[index],
+        ...updatedData
+    }
+
+    return employees[index]
+}
+
+const deleteEmployee = (id) =>{
+    const index = employees.findIndex(employees => employees.id === Number(id))
+    if (index === -1){
+        return null
+    }
+    return employees.splice(index , 1)[0]
+}
+
 module.exports = {
     getAllEmployees, 
     getEmployeeByID, 
-    addEmployee
+    addEmployee,
+    updateEmployee,
+    deleteEmployee
 }

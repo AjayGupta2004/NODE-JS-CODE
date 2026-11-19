@@ -32,8 +32,47 @@ const addEmployee = (req, res) =>{
     sendSuccess(res, "Employee Created Successfully", employee, 201)
 }
 
+const updateEmployee = (req,res, next) =>{
+    try{
+        const updatedEmployee = employeeService.updateEmployee(
+            req.params.id,
+            req.body
+        )
+
+        if(!updatedEmployee){
+            return res.status(404).json({
+                success : false,
+                message : 'Employee Not Found'
+            })
+        }
+        sendSuccess(res, "Employee Updated Successfully", updatedEmployee)
+
+    } catch(error){
+        next(error)
+    }
+}
+const deleteEmployee = (req,res,next) =>{
+    try{
+        const deletedEmployee = employeeService.deleteEmployee(req.params.id)
+
+        if(!deletedEmployee){
+            return res.status(404).json({
+                    success: false,
+                    message: "Employee Not Found"
+            })
+        }
+
+        sendSuccess(res, 'Employee Deleted Successfully', deletedEmployee)
+    }catch(error){
+        next(error)
+    }
+}
+
+
 module.exports = {
     getEmployees, 
     getEmployeeByID, 
-    addEmployee
+    addEmployee,
+    updateEmployee,
+    deleteEmployee
 }
